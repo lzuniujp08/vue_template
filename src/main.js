@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import App from "./pages/app.vue";
 import "./css/style.scss";
 Vue.use(VueRouter);
+import Element from 'element-ui'
+Vue.use(Element);
 const Home = require("./pages/home.vue");
 const Detail = require("./pages/detail.vue");
 const router = new VueRouter({

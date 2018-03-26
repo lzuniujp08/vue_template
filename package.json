@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "element-ui": "^2.2.2",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.1",
     "html-loader": "^0.4.5",
@@ -34,5 +35,7 @@
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-hot-middleware": "^2.18.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-plugin-component": "^1.1.0"
+  }
 }

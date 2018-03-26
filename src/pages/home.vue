@@ -2,8 +2,8 @@
     <div class="layout" >
 	    <span>当前数字：</span>
         <span >{{num}}</span>
-        <button v-on:click="add">+1</button>
-
+        
+        <el-button  v-on:click="add">+1</el-button>
         <p>
             <router-link to="/detail/1">详情页</router-link>
         </p>
