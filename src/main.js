@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 import App from "./pages/app.vue";
 import "./css/style.scss";
 Vue.use(VueRouter);
-import Element from 'element-ui'
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Element);
 const Home = require("./pages/home.vue");
 const Detail = require("./pages/detail.vue");
