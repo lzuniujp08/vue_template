@@ -9,14 +9,9 @@ const path = require('path')
 //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isPro = nodeEnv === 'production';
-console.log("当前运行环境：", isPro ?
-    'production' :
-    'development');
-
+console.log("当前运行环境：", isPro ? 'production' : 'development');
 
 module.exports = {
-    // target: 'electron-renderer',
-    // devtool: 'eval',
     entry: {
         app: [
             //'webpack-dev-server/client?http://localhost:3000',
