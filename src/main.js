@@ -11,7 +11,7 @@ const router = new VueRouter({
     routes: [
         {
             path: "/",
-            name: "app",
+            name: "lzugis",
             redirect: '/home',
             component: App,
             children: [
@@ -22,7 +22,7 @@ const router = new VueRouter({
                 },
                 {
                     name: 'detail',
-                    path: '/detail/:id',
+                    path: '/detail/:id/:name',
                     component:Detail
                 }
             ]

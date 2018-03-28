@@ -4,31 +4,33 @@
         <span >{{num}}</span>
         <button v-on:click="add">+1</button>
         <p>
-            <router-link to="/detail/1">详情页</router-link>
+            <router-link to="/detail/2/lzugis">详情页</router-link>
         </p>
-        <div class="map" id="map"></div>
+        <div class="map" id="map">
+            <div class="mouse-position" id="lonlat"></div>
+        </div>
     </div>
 </template>
 <script>
     var map;
 
-    import ol from 'ol';
+    import proj from 'ol/proj';
     import Map from 'ol/map';
     import View from 'ol/view';
     import TileLayer from 'ol/layer/tile';
     import OsmSource from 'ol/source/OSM';
+    import $ from 'jquery';
 
     export default {
         data: function () {
             return {
-                num:1
+                num: 3
             }
         },
         updated: function () {
             console.log('home updated');
         },
         mounted: function () {
-            console.log('home mounted');
             map = new Map({
                 layers: [
                     new TileLayer({
@@ -37,11 +39,16 @@
                 ],
                 target: 'map',
                 view: new View({
-                    center: [-74.0064, 40.7142],
+                    center: proj.transform([116.397428, 39.90923], 'EPSG:4326', 'EPSG:3857'),
                     maxZoom: 19,
-                    zoom: 4
+                    zoom: 7
                 })
             });
+
+            map.on("pointermove", function (evt) {
+                const _coord = proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                $("#lonlat").html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
+            })
         },
         methods: {
             add:function(){
@@ -56,5 +63,15 @@
         width: 500px;
         height: 300px;
         border: 1px solid red;
+        position: relative;
+        .mouse-position{
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 5px;
+            background: white;
+            border: 1px solid #ccc;
+            z-index: 9;
+        }
     }
 </style>
