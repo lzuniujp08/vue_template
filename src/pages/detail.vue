@@ -3,6 +3,11 @@
         <span>当前文章id：</span>
         {{ id }}
         <div v-html="detailHtml"></div>
+
+        <el-button @click="visible = true">Button</el-button>
+        <el-dialog :visible.sync="visible" title="Hello world">
+            <p>Try Element</p>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -12,7 +17,8 @@
             return {
                 id: '',
                 name: '',
-                detailHtml:'加载中。。。'
+                detailHtml:'加载中。。。',
+                visible:false
             }
         },
         updated: function () {
@@ -28,7 +34,7 @@
                 var _self = this;
                 setTimeout(function(){
                     _self.detailHtml = '文章内容' + _self.name
-                },2000);
+                },1000);
 
             }
         }
