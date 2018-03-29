@@ -1,7 +1,7 @@
 <template id="template">
     <div class="layout" >
-	    <span>当前文章id：</span>
-        {{$route.params.id}}
+        <span>当前文章id：</span>
+        {{ id }}
         <div v-html="detailHtml"></div>
     </div>
 </template>
@@ -10,23 +10,26 @@
     export default {
         data: function () {
             return {
-                detailHtml:'<p>加载中。。。</p>'
+                id: '',
+                name: '',
+                detailHtml:'加载中。。。'
             }
         },
         updated: function () {
 
         },
         mounted: function () {
-            var id = this.$route.params.id;
-            this.getDetail(id);
+            this.id = this.$route.params.id;
+            this.name = this.$route.params.name;
+            this.getDetail();
         },
         methods: {
             getDetail:function(id){
-                var _this = this;
+                var _self = this;
                 setTimeout(function(){
-                    _this.detailHtml = '<p>文章内容</p>'
+                    _self.detailHtml = '文章内容' + _self.name
                 },2000);
-                
+
             }
         }
     }
