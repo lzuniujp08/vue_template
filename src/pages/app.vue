@@ -22,7 +22,7 @@
             return {
                 menus: [
                     { id: 'menu-home' ,title: '首 页', url: '/home'},
-                    { id: 'menu-map' ,title: '地 图', url: '/map'},
+                    { id: 'menu-chart' ,title: '统 计', url: '/chart'},
                     { id: 'menu-detail' ,title: '设 置', url: '/detail/2/lzugis'}
                 ]
             }

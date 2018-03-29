@@ -14,15 +14,6 @@
     </div>
 </template>
 <script>
-    let map;
-
-    import proj from 'ol/proj';
-    import Map from 'ol/map';
-    import View from 'ol/view';
-    import TileLayer from 'ol/layer/tile';
-    import OsmSource from 'ol/source/OSM';
-    import $ from 'jquery';
-
     import mapUtil from './../js/mapUtil';
 
     export default {
@@ -36,7 +27,6 @@
         },
         mounted: function () {
             mapUtil.init();
-            map = mapUtil.map;
         },
         methods: {
             add:function(){
