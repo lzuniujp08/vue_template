@@ -3,11 +3,8 @@
         <nav>
             <span class="logo">Openlayers+Vue</span>
             <ul class="menus">
-                <li id="home" class="active" v-on:click="menuSelect('home')">
-                    <router-link to="/home">首 页</router-link>
-                </li>
-                <li id="detail" v-on:click="menuSelect('detail')">
-                    <router-link to="/detail/2/lzugis">详情页</router-link>
+                <li v-for="menu in menus" :id="menu.id" >
+                    <router-link :to="menu.url" v-bind:click="menuSelect">{{ menu.title }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -23,7 +20,11 @@
     export default {
         data: function () {
             return {
-                
+                menus: [
+                    { id: 'home' ,title: '首 页', url: '/home'},
+                    { id: 'detail' ,title: '设 置', url: '/detail/2/lzugis'},
+                    { id: 'detail1' ,title: '设 置1', url: '/detail/1/lzugis'}
+                ]
             }
         },
         updated: function () {
@@ -33,9 +34,17 @@
             var self = this;
         },
         methods: {
-            menuSelect: function (menuId) {
+            menuSelect: function () {
+                console.log(this);
                 $(".menus").children().removeClass("active");
                 $("#"+menuId).addClass("active");
+            }
+        },
+        computed: {
+            classObject: function () {
+                return {
+                    active: this.isActive
+                }
             }
         }
     }

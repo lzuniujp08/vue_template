@@ -13,7 +13,6 @@
   background-color:none;
 }
 
-
 /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
   border-radius: 2px;
@@ -64,6 +63,13 @@ nav{
       text-align: center;
       cursor: pointer;
       &.active{
+        color: $main-color;
+        background-color: white;
+      }
+      &:not(:first-child){
+        border-left: 1px solid #ffffff;
+      }
+      &:hover{
         color: $main-color;
         background-color: white;
       }

@@ -1,7 +1,7 @@
 <template id="template">
     <div class="layout" >
         <span>当前文章id：</span>
-        {{ id }}
+        {{ $route.params.id }}
         <div v-html="detailHtml"></div>
 
         <el-button @click="visible = true">Button</el-button>
@@ -22,7 +22,9 @@
             }
         },
         updated: function () {
-
+            this.id = this.$route.params.id;
+            this.name = this.$route.params.name;
+            this.getDetail();
         },
         mounted: function () {
             this.id = this.$route.params.id;
