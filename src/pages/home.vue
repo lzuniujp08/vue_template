@@ -1,6 +1,6 @@
 <template id="template">
-    <div class="layout" >
-	    <!--<span>当前数字：</span>
+    <div class="map" id="map">
+        <!--<span>当前数字：</span>
         <span >{{num}}</span>
 
         <el-button  v-on:click="add">+1</el-button>
@@ -10,9 +10,7 @@
         <span>当前数字：</span>
         <span >{{num}}</span>
         <button v-on:click="add">+1</button>-->
-        <div class="map" id="map">
-            <div class="mouse-position" id="lonlat"></div>
-        </div>
+        <div class="mouse-position" id="lonlat"></div>
     </div>
 </template>
 <script>
@@ -25,6 +23,8 @@
     import OsmSource from 'ol/source/OSM';
     import $ from 'jquery';
 
+    import mapUtil from './../js/mapUtil';
+
     export default {
         data: function () {
             return {
@@ -35,24 +35,8 @@
             console.log('home updated');
         },
         mounted: function () {
-            map = new Map({
-                layers: [
-                    new TileLayer({
-                        source: new OsmSource()
-                    })
-                ],
-                target: 'map',
-                view: new View({
-                    center: proj.transform([116.397428, 39.90923], 'EPSG:4326', 'EPSG:3857'),
-                    maxZoom: 19,
-                    zoom: 7
-                })
-            });
-
-            map.on("pointermove", function (evt) {
-                const _coord = proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-                $("#lonlat").html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
-            });
+            mapUtil.init();
+            map = mapUtil.map;
         },
         methods: {
             add:function(){
@@ -65,8 +49,9 @@
 <style lang="scss" scoped>
     .map{
         width: 100%;
-        height: calc(100% - 70px);
-        position: relative;
+        position: absolute;
+        top:40px;
+        bottom: 30px;
         .mouse-position{
             position: absolute;
             bottom: 10px;

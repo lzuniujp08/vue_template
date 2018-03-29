@@ -80,3 +80,11 @@ footer{
   background-color: $main-color;
   color: white;
 }
+
+.layout{
+  &.view{
+    width: 100%;
+    height: 100%;
+  }
+
+}
