@@ -21,9 +21,9 @@
         data: function () {
             return {
                 menus: [
-                    { id: 'home' ,title: '首 页', url: '/home'},
-                    { id: 'detail' ,title: '设 置', url: '/detail/2/lzugis'},
-                    { id: 'detail1' ,title: '设 置1', url: '/detail/1/lzugis'}
+                    { id: 'menu-home' ,title: '首 页', url: '/home'},
+                    { id: 'menu-map' ,title: '地 图', url: '/map'},
+                    { id: 'menu-detail' ,title: '设 置', url: '/detail/2/lzugis'}
                 ]
             }
         },

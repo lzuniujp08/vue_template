@@ -10,6 +10,7 @@ Vue.use(Element);
 
 const Home = require("./pages/home.vue");
 const Detail = require("./pages/detail.vue");
+const Map = require("./pages/map.vue");
 const router = new VueRouter({
     mode: "hash",
     base: __dirname,
@@ -27,6 +28,10 @@ const router = new VueRouter({
                 name: 'detail',
                 path: '/detail/:id/:name',
                 component: Detail
+            }, {
+                name: 'map',
+                path: '/map',
+                component: Map
             }]
         }
     ]
