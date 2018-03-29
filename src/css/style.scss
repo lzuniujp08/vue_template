@@ -1,5 +1,3 @@
-/* fallback */
-
 @import 'public.scss';
 @font-face {
   font-family: 'Material Icons';
@@ -9,21 +7,20 @@
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
   height: 4px;
   background-color:none;
 }
 
-
 /*定义滚动条轨道 内阴影+圆角*/
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   border-radius: 2px;
   background-color:none;
 }
 
 /*定义滑块 内阴影+圆角*/
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
   background-color: rgb(160, 152, 152);
@@ -69,6 +66,13 @@ nav{
         color: $main-color;
         background-color: white;
       }
+      &:not(:first-child){
+        border-left: 1px solid #ffffff;
+      }
+      &:hover{
+        color: $main-color;
+        background-color: white;
+      }
     }
   }
 }
@@ -81,4 +85,12 @@ footer{
   text-align: center;
   background-color: $main-color;
   color: white;
+}
+
+.layout{
+  &.view{
+    width: 100%;
+    height: 100%;
+  }
+
 }

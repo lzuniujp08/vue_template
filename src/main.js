@@ -1,31 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./pages/app.vue";
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import "./css/style.scss";
+
 Vue.use(VueRouter);
+Vue.use(Element);
+
 const Home = require("./pages/home.vue");
 const Detail = require("./pages/detail.vue");
+const Map = require("./pages/map.vue");
 const router = new VueRouter({
     mode: "hash",
     base: __dirname,
     routes: [
         {
             path: "/",
-            name: "lzugis",
+            name: "app",
             redirect: '/home',
             component: App,
-            children: [
-                {
-                    name: "home",
-                    path: "/home",
-                    component: Home
-                },
-                {
-                    name: 'detail',
-                    path: '/detail/:id/:name',
-                    component:Detail
-                }
-            ]
+            children: [{
+                name: "home",
+                path: "/home",
+                component: Home
+            }, {
+                name: 'detail',
+                path: '/detail/:id/:name',
+                component: Detail
+            }, {
+                name: 'map',
+                path: '/map',
+                component: Map
+            }]
         }
     ]
 });
