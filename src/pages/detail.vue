@@ -11,7 +11,12 @@
     </div>
 </template>
 <script>
-    const $ = require('jquery');
+    import Vue from "vue";
+    import Element from 'element-ui';
+    import 'element-ui/lib/theme-chalk/index.css';
+    import $ from 'jquery';
+    Vue.use(Element);
+
     export default {
         data: function () {
             return {

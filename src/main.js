@@ -1,12 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./pages/app.vue";
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
 import "./css/style.scss";
 
 Vue.use(VueRouter);
-Vue.use(Element);
 
 const Home = require("./pages/home.vue");
 const Detail = require("./pages/detail.vue");
