@@ -3,12 +3,10 @@ const {
 } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-const path = require('path')
 
 //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isPro = nodeEnv === 'production';
+const isPro = nodeEnv === 'development';
 console.log("当前运行环境：", isPro ? 'production' : 'development');
 
 module.exports = {
@@ -64,16 +62,12 @@ module.exports = {
                 use: [
                     "style-loader", "css-loader"
                 ],
-                // exclude: /node_modules/,
-                // include: /src/
             },
             {
                 test: /\.(scss)$/,
                 use: [
                     "style-loader", "css-loader", "sass-loader"
                 ],
-                // exclude: /node_modules/,
-                // include: /src/
             },
             {
                 test: /\.(png|jpg|gif)$/i,
@@ -148,14 +142,6 @@ module.exports = {
             name: 'vendor',
             filename: 'js/[name].js'
         }),
-        // css 前缀
-        // new webpack.LoaderOptionsPlugin({
-        //     options: {
-        //         postcss: function () {
-        //             return [require('autoprefixer')];
-        //         }
-        //     }
-        // })
     ],
     resolve: {
         alias: {
