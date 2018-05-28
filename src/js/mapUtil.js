@@ -36,7 +36,7 @@ mapUtil.addWmsLayer = function(url, layers){
 };
 
 function initMap(domId) {
-    mapUtil.map = new Map({
+    window.map = new Map({
         layers: [
             new TileLayer({
                 source: new OsmSource()
@@ -50,7 +50,7 @@ function initMap(domId) {
         })
     });
 
-    mapUtil.map.on("pointermove", function (evt) {
+    window.map.on("pointermove", function (evt) {
         const _coord = proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
         $("#lonlat").html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
     });
