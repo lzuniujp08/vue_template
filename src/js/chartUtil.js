@@ -2,15 +2,15 @@
  * Created by lzugis on 2018/3/28.
  */
 
-let chartUtil = {};
+let chartUtil = {
+    chart: null,
 
-chartUtil.init = initChart;
-
-function initChart(domId, option) {
-    var echarts = require('echarts');
-    const myChart = echarts.init(document.getElementById(domId));
-    // 绘制图表
-    myChart.setOption(option);
-}
+    init (domId, option){
+        const echarts = require('echarts');
+        this.chart = echarts.init(document.getElementById(domId));
+        // 绘制图表
+        this.chart.setOption(option);
+    }
+};
 
 export default chartUtil;

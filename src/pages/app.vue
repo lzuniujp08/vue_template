@@ -3,8 +3,8 @@
         <nav>
             <span class="logo">Openlayers+Vue</span>
             <ul class="menus">
-                <li v-for="menu in menus" :id="menu.id" v-bind:click="menuSelect">
-                    <router-link :to="menu.url">{{ menu.title }}</router-link>
+                <li v-for="menu in menus" :id="menu.id" >
+                    <router-link :to="menu.url" v-bind:click="menuSelect">{{ menu.title }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -16,7 +16,7 @@
 </template>
 <script>
     export default {
-        data: function () {
+        data () {
             return {
                 menus: [
                     { id: 'menu-home' ,title: '首 页', url: '/home'},
@@ -25,21 +25,19 @@
                 ]
             }
         },
-        updated: function () {
+        updated () {
 
         },
-        mounted: function () {
+        mounted () {
             var self = this;
         },
         methods: {
-            menuSelect: function () {
-                console.log(this);
-                $(".menus").children().removeClass("active");
-                $("#"+menuId).addClass("active");
+            menuSelect () {
+                debugger;
             }
         },
         computed: {
-            classObject: function () {
+            classObject () {
                 return {
                     active: this.isActive
                 }

@@ -17,19 +17,19 @@
     import mapUtil from './../js/mapUtil';
 
     export default {
-        data: function () {
+        data () {
             return {
                 num:1
             }
         },
-        updated: function () {
+        updated () {
             console.log('home updated');
         },
-        mounted: function () {
+        mounted () {
             mapUtil.init();
         },
         methods: {
-            add:function(){
+            add () {
                 this.num++;
             }
         }

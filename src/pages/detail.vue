@@ -34,7 +34,7 @@
     Vue.use(Element);
 
     export default {
-        data: function () {
+        data () {
             return {
                 id: '',
                 name: '',
@@ -42,18 +42,18 @@
                 visible:false
             }
         },
-        updated: function () {
+        updated () {
             this.id = this.$route.params.id;
             this.name = this.$route.params.name;
             this.getDetail();
         },
-        mounted: function () {
+        mounted () {
             this.id = this.$route.params.id;
             this.name = this.$route.params.name;
             this.getDetail();
         },
         methods: {
-            getDetail:function(id){
+            getDetail (id){
                 var _self = this;
                 setTimeout(function(){
                     _self.detailHtml = '文章内容' + _self.name

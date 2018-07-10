@@ -7,15 +7,15 @@
     import chartUtil from './../js/chartUtil';
 
     export default {
-        data: function () {
+        data () {
             return {
                 num:1
             }
         },
-        updated: function () {
+        updated () {
             console.log('home updated');
         },
-        mounted: function () {
+        mounted () {
             const option = {
                 "tooltip": {"trigger": "axis"},
                 "legend": {"data": ["温度", "风速风向", "湿度", "降水量"], "x": "right"},
@@ -246,7 +246,7 @@
             chartUtil.init('chart',option);
         },
         methods: {
-            add:function(){
+            add (){
                 this.num++;
             }
         }
