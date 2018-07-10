@@ -3,8 +3,8 @@
         <nav>
             <span class="logo">Openlayers+Vue</span>
             <ul class="menus">
-                <li v-for="menu in menus" :id="menu.id" >
-                    <router-link :to="menu.url" v-bind:click="menuSelect">{{ menu.title }}</router-link>
+                <li v-for="menu in menus" :id="menu.id" v-bind:click="menuSelect">
+                    <router-link :to="menu.url">{{ menu.title }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -15,8 +15,6 @@
     </div>
 </template>
 <script>
-    import $ from 'jquery';
-
     export default {
         data: function () {
             return {
