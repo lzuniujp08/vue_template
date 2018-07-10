@@ -3,16 +3,15 @@
  */
 
 import {Map, View} from 'ol';
-
-import TileLayer from 'ol/layer/Tile';
-import ImageLayer from 'ol/layer/Image';
-
-import ImgWmsSource from 'ol/source/ImageWMS';
-import XYZSource from 'ol/source/XYZ';
-
+import {createStringXY} from 'ol/coordinate'
 import {toEPSG4326, fromEPSG4326} from 'ol/proj/epsg3857.js';
 
-import $ from 'jquery';
+import {Tile, Image} from 'ol/layer';
+
+import {ImageWMS, XYZ} from 'ol/source';
+
+import {defaults as defaultControls, ScaleLine, OverviewMap} from 'ol/control.js';
+import MousePosition from 'ol/control/MousePosition'
 
 let mapUtil = {
     baseLayer: null,
@@ -21,7 +20,29 @@ let mapUtil = {
     init (domId){
         this.baseLayer = this.getTdtLayer('vec_w');
         this.labelLayer = this.getTdtLayer('cva_w');
+
+        const scaleLine = new ScaleLine({
+            target: document.getElementById('scaleline')
+        });
+        const overViewmap = new OverviewMap({
+            target: document.getElementById('overview'),
+            collapsible: false,
+            collapsed: false
+        });
+        const mousePosition = new MousePosition({
+            target: document.getElementById('lonlat'),
+            projection:'EPSG:4326',
+            coordinateFormat: createStringXY(4),
+            undefinedHTML: '&nbsp;'
+        });
+        let controls = [scaleLine, mousePosition];
+
         window.map = new Map({
+            controls: defaultControls({
+                attributionOptions: {
+                    collapsible: false
+                }
+            }).extend(controls),
             layers: [
                 this.baseLayer,
                 this.labelLayer
@@ -34,18 +55,18 @@ let mapUtil = {
             })
         });
 
-        window.map.on("pointermove", function (evt) {
-            const _coord = toEPSG4326(evt.coordinate);
-            $("#lonlat").html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
-        });
+        // window.map.on("pointermove", function (evt) {
+        //     const _coord = toEPSG4326(evt.coordinate);
+        //     $("#lonlat").html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
+        // });
     },
     /**
      * getTdtLayer
      * @param lyr
-     * @returns {TileLayer}
+     * @returns {Tile}
      */
     getTdtLayer (lyr){
-        return new TileLayer({
+        return new Tile({
             source: this.getTdtSource(lyr),
         })
     },
@@ -55,8 +76,8 @@ let mapUtil = {
      * @returns {XYZ}
      */
     getTdtSource (lyr){
-        const url = "http://t{0-8}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}";
-        return new XYZSource({
+        const url = "http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}";
+        return new XYZ({
             url:url
         });
     },
@@ -66,8 +87,8 @@ let mapUtil = {
      * @param layers
      */
     addWmsLayer (url, layers){
-        const wmsLayer = new ImageLayer({
-            source: new ImgWmsSource({
+        const wmsLayer = new Image({
+            source: new ImageWMS({
                 ratio: 1,
                 url: url,
                 params: {
@@ -86,12 +107,12 @@ let mapUtil = {
         let self = this;
         let baseSource, labelSouce;
         switch (type){
-            case 'img':{
+            case '影像':{
                 baseSource = self.getTdtSource('img_w');
                 labelSouce = self.getTdtSource('cia_w');
                 break;
             }
-            case 'ter':{
+            case '地形':{
                 baseSource = self.getTdtSource('ter_w');
                 labelSouce = self.getTdtSource('cva_w');
                 break;
