@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server --progress --colors --content-base build",
     "build": "webpack"
   },
-  "author": "",
+  "author": "lzugis",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.23.1",
@@ -30,9 +30,9 @@
   "dependencies": {
     "babel-plugin-component": "^1.1.0",
     "echarts": "^4.0.4",
-    "element-ui": "^2.2.2",
+    "element-ui": "^2.3.4",
     "jquery": "^3.3.1",
-    "ol": "^4.6.5",
+    "ol": "^5.0.2",
     "vue": "^2.5.16",
     "vue-loader": "^12.2.1",
     "vue-router": "^2.6.0",

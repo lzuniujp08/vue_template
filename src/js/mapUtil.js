@@ -2,11 +2,9 @@
  * Created by lzugis on 2018/3/28.
  */
 
-import proj from 'ol/proj';
-import Map from 'ol/map';
-import View from 'ol/view';
+import {Map, View} from 'ol';
 
-import TileLayer from 'ol/layer/tile';
+import TileLayer from 'ol/layer/Tile';
 import ImageLayer from 'ol/layer/Image';
 
 import ImgWmsSource from 'ol/source/ImageWMS';
@@ -44,7 +42,7 @@ function initMap(domId) {
         ],
         target: domId ? domId : 'map',
         view: new View({
-            center: proj.transform([116.397428, 39.90923], 'EPSG:4326', 'EPSG:3857'),
+            center: [12957302.414606724, 4852760.584444312],
             maxZoom: 19,
             zoom: 7
         })

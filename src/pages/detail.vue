@@ -8,6 +8,22 @@
         <el-dialog :visible.sync="visible" title="Hello world">
             <p>Try Element</p>
         </el-dialog>
+        <el-form class="login-form">
+            <el-form-item>
+                <el-input :autofocus="true" placeholder="请输入账号" v-model="username" tabindex="1">
+                    <template slot="prepend">
+                        <i class="el-icon-mobile-phone"></i>
+                    </template>
+                </el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="请输入密码" type="password" v-model="password" tabindex="2">
+                    <template slot="prepend">
+                        <i class="el-icon-info"></i>
+                    </template>
+                </el-input>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 <script>
@@ -47,3 +63,9 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .login-form{
+        width: 350px;
+    }
+</style>
