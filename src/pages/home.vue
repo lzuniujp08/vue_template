@@ -14,6 +14,7 @@
 </template>
 <script>
     import mapUtil from './../js/mapUtil';
+    import leafletAdaptor from './../js/adaptor/leafletAdaptor';
     import Element from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
 
@@ -25,17 +26,17 @@
             }
         },
         updated () {
-            console.log('home updated');
+//            console.log('home updated');
         },
         mounted () {
-            mapUtil.init();
+            leafletAdaptor.init();
         },
         methods: {
             add () {
                 this.num++;
             },
             changeBaseMap (){
-                mapUtil.changeBaseLayer(this.basemap);
+                leafletAdaptor.changeBaseLayer(this.basemap);
             }
         }
     }
