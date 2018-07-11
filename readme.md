@@ -3,8 +3,12 @@ VUE（Element）+OL5+leaflet Demo
 
 ![effect](img/effect.png)
 # 实现功能
-1、ol5和Vue（Element的引入）；
-2、天地图和底图切换；
+1、Vue和Element；
+
+2、创建地图适配器，目前只适配ol5和leaflet；
+
+3、调用天地图和底图切换；
+
 
 ---------------------
 需要的环境：node,git

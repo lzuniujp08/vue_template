@@ -14,7 +14,6 @@
 </template>
 <script>
     import mapUtil from './../js/mapUtil';
-    import leafletAdaptor from './../js/adaptor/leafletAdaptor';
     import Element from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
 
@@ -29,14 +28,14 @@
 //            console.log('home updated');
         },
         mounted () {
-            leafletAdaptor.init();
+            mapUtil.init('map', 'leaflet');
         },
         methods: {
             add () {
                 this.num++;
             },
             changeBaseMap (){
-                leafletAdaptor.changeBaseLayer(this.basemap);
+                mapUtil.changeBaseLayer(this.basemap);
             }
         }
     }
@@ -53,7 +52,7 @@
             position: absolute;
             top:$border-margin;
             right: $border-margin;
-            z-index: 9;
+            z-index: 999;
         }
     }
     .custom-mouse-position{
@@ -62,7 +61,7 @@
         right: $border-margin;
         padding: 3px 5px;
         background: white;
-        z-index: 9;
+        z-index: 999;
         box-shadow: 1px 1px 2px #ccc;
         border-radius: 5px;
     }
@@ -81,7 +80,7 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        z-index: 9;
+        z-index: 999;
         border-top: 1px solid #000;
         border-right: 1px solid #000;
         button{
