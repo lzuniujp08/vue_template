@@ -4,6 +4,7 @@
 
 import leafletAdaptor from './adaptor/leafletAdaptor';
 import openlayerAdaptor from './adaptor/openlayerAdaptor';
+import $ from 'jquery';
 
 let mapUtil = {
     adaptors: {
@@ -27,9 +28,18 @@ let mapUtil = {
         this.adaptors[this.adaptorType].addWmsLayer(url, layers);
     },
 
+    addGeojsonLayer (url, style){
+        var self = this;
+        style = style? style : self.adaptors[self.adaptorType].getVecStyle;
+        $.get(url, function (result) {
+            self.adaptors[self.adaptorType].addGeojsonLayer(result, style);
+        })
+    },
+
     changeBaseLayer(type) {
         this.adaptors[this.adaptorType].changeBaseLayer(type);
     }
+
 };
 
 export default mapUtil;

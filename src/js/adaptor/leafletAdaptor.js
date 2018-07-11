@@ -45,8 +45,19 @@ let leafletAdaptor = {
         });
         window.map.addLayer(wms);
     },
+
+    addGeojsonLayer (data, style) {
+        L.geoJSON(data,{
+            style: style
+        }).addTo(map);
+    },
+
+    getVecStyle (feature){
+        return feature.properties && feature.properties.style;
+    },
+
     /**
-     * 
+     *
      * @param type
      */
     changeBaseLayer (type) {

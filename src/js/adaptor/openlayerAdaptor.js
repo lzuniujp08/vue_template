@@ -5,13 +5,15 @@
 import {Map, View} from 'ol';
 import {createStringXY} from 'ol/coordinate'
 import {toEPSG4326, fromEPSG4326} from 'ol/proj/epsg3857.js';
-
-import {Tile, Image} from 'ol/layer';
-
-import {ImageWMS, XYZ} from 'ol/source';
-
+import {Tile, Image, Vector} from 'ol/layer';
+import {ImageWMS, XYZ, Vector} from 'ol/source';
 import {defaults as defaultControls, ScaleLine, OverviewMap} from 'ol/control.js';
 import MousePosition from 'ol/control/MousePosition'
+import GeoJSON from 'ol/format/GeoJSON';
+import Style from 'ol/style/Style';
+import Circle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+
 
 let openlayerAdaptor = {
     baseLayer: null,
@@ -55,33 +57,8 @@ let openlayerAdaptor = {
                 zoom: 7
             })
         });
+    },
 
-        // window.map.on('pointermove', function (evt) {
-        //     const _coord = toEPSG4326(evt.coordinate);
-        //     $('#lonlat').html(_coord[0].toFixed(3) + ',' + _coord[1].toFixed(3))
-        // });
-    },
-    /**
-     * getTdtLayer
-     * @param lyr
-     * @returns {Tile}
-     */
-    getTdtLayer (lyr){
-        return new Tile({
-            source: this.getTdtSource(lyr),
-        })
-    },
-    /**
-     * getTdtSource
-     * @param lyr
-     * @returns {XYZ}
-     */
-    getTdtSource (lyr){
-        const url = "http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}";
-        return new XYZ({
-            url:url
-        });
-    },
     /**
      * addWmsLayer
      * @param url
@@ -102,6 +79,32 @@ let openlayerAdaptor = {
             })
         });
         window.map.addLayer(wmsLayer);
+    },
+
+    addGeojsonLayer (data, style) {
+        const features = (new GeoJSON()).readFeatures(data);
+        for(let i = 0, len = features.length; i < len; i++){
+            const geom = features[i].getGeometry();
+            geom.transform('EPSG:4326', window.map.getView().getProjection());
+        }
+        const jsonLayer = new Vector({
+            source: new Vector({
+                features: features
+            }),
+            style: style
+        });
+        window.map.addLayer(jsonLayer);
+    },
+
+    getVecStyle (feature){
+        return new Style({
+            image: Circle({
+                radius: 8,
+                fill: Fill({
+                    color: "red"
+                })
+            })
+        })
     },
 
     changeBaseLayer(type) {
@@ -126,6 +129,27 @@ let openlayerAdaptor = {
         }
         self.baseLayer.setSource(baseSource);
         self.labelLayer.setSource(labelSouce);
+    },
+    /**
+     * getTdtLayer
+     * @param lyr
+     * @returns {Tile}
+     */
+    getTdtLayer (lyr){
+        return new Tile({
+            source: this.getTdtSource(lyr),
+        })
+    },
+    /**
+     * getTdtSource
+     * @param lyr
+     * @returns {XYZ}
+     */
+    getTdtSource (lyr){
+        const url = "http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}";
+        return new XYZ({
+            url:url
+        });
     }
 };
 

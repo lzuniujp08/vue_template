@@ -35,6 +35,7 @@ module.exports = {
         hot: true,
         contentBase: resolve(__dirname, 'dist'),
         publicPath: '/',
+        subDirectory: 'static',
         port: '3000'
     },
 
