@@ -29,10 +29,9 @@
         },
         mounted () {
             mapUtil.init('map', 'leaflet');
-            mapUtil.addWmsLayer('http://10.16.57.77:8086/geoserver/railway/wms', 'railway:base_province');
-            const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
-//            const url = '../data/capital.geojson';
-            mapUtil.addGeojsonLayer(url, null);
+            // mapUtil.addWmsLayer('https://ahocevar.com/geoserver/wms', 'topp:states');
+            // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
+            mapUtil.addGeojsonLayer();
         },
         methods: {
             add () {
@@ -79,6 +78,7 @@
         height: 8px;
         text-align: center;
         line-height: 0;
+        display: none;
     }
     .custom-overview-map{
         position: absolute;
