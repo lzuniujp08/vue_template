@@ -3,13 +3,20 @@ const {
 } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
 
 //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isPro = nodeEnv === 'development';
-console.log("当前运行环境：", isPro ? 'production' : 'development');
+const isPro = nodeEnv === 'production';
+console.log("当前运行环境：", isPro ?
+    'production' :
+    'development');
+
 
 module.exports = {
+    // target: 'electron-renderer',
+    // devtool: 'eval',
     entry: {
         app: [
             //'webpack-dev-server/client?http://localhost:3000',
@@ -35,7 +42,6 @@ module.exports = {
         hot: true,
         contentBase: resolve(__dirname, 'dist'),
         publicPath: '/',
-        subDirectory: 'static',
         port: '3000'
     },
 
@@ -50,12 +56,12 @@ module.exports = {
                     loader: 'html-loader'
                 }]
             },
-            
+
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
-                    
+
                 }
             },
             {
@@ -63,51 +69,55 @@ module.exports = {
                 use: [
                     "style-loader", "css-loader"
                 ],
+                // exclude: /node_modules/,
+                // include: /src/
             },
             {
                 test: /\.(scss)$/,
                 use: [
                     "style-loader", "css-loader", "sass-loader"
                 ],
+                // exclude: /node_modules/,
+                // include: /src/
             },
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [{
-                        loader: "url-loader",
+                    loader: "url-loader",
+                    query: {
+                        name: 'images/[name].[ext]?v=[hash:5]',
+                        limit: 20000
+                    }
+                }, {
+                    loader: 'image-webpack-loader',
+                    options: {
                         query: {
-                            name: 'images/[name].[ext]?v=[hash:5]',
-                            limit: 20000
-                        }
-                    }, {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            query: {
-                                mozjpeg: {
-                                    progressive: true,
-                                    quality: 65
-                                },
-                                pngquant: {
-                                    quality: "10-20",
-                                    speed: 4
-                                },
-                                svgo: {
-                                    plugins: [{
-                                        removeViewBox: false
-                                    }, {
-                                        removeEmptyAttrs: false
-                                    }]
-                                },
-                                gifsicle: {
-                                    optimizationLevel: 7,
-                                    interlaced: false
-                                },
-                                optipng: {
-                                    optimizationLevel: 7,
-                                    interlaced: false
-                                }
+                            mozjpeg: {
+                                progressive: true,
+                                quality: 65
+                            },
+                            pngquant: {
+                                quality: "10-20",
+                                speed: 4
+                            },
+                            svgo: {
+                                plugins: [{
+                                    removeViewBox: false
+                                }, {
+                                    removeEmptyAttrs: false
+                                }]
+                            },
+                            gifsicle: {
+                                optimizationLevel: 7,
+                                interlaced: false
+                            },
+                            optipng: {
+                                optimizationLevel: 7,
+                                interlaced: false
                             }
                         }
                     }
+                }
 
                 ]
             }, {
@@ -143,10 +153,18 @@ module.exports = {
             name: 'vendor',
             filename: 'js/[name].js'
         }),
+        // css 前缀
+        // new webpack.LoaderOptionsPlugin({
+        //     options: {
+        //         postcss: function () {
+        //             return [require('autoprefixer')];
+        //         }
+        //     }
+        // })
     ],
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.common.js'
         }
     }
-};
+}
