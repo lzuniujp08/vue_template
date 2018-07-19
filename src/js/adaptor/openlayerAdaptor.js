@@ -5,14 +5,12 @@
 import {Map, View} from 'ol';
 import {createStringXY} from 'ol/coordinate'
 import {toEPSG4326, fromEPSG4326} from 'ol/proj/epsg3857.js';
-import {Tile, Image, Vector} from 'ol/layer';
-import {ImageWMS, XYZ, Vector} from 'ol/source';
-import {defaults as defaultControls, ScaleLine, OverviewMap} from 'ol/control.js';
+import {Tile, Image, Vector as vectorLayer} from 'ol/layer';
+import {ImageWMS, XYZ, Vector as vectorSource} from 'ol/source.js';
+import {defaults as defaultControls, ScaleLine, OverviewMap, Zoom} from 'ol/control.js';
 import MousePosition from 'ol/control/MousePosition'
-import GeoJSON from 'ol/format/GeoJSON';
-import Style from 'ol/style/Style';
-import Circle from 'ol/style/Circle';
-import Fill from 'ol/style/Fill';
+import GeoJSON from 'ol/format/GeoJSON.js';
+import {Circle as CircleStyle, Fill, Stroke, Style, Text} from 'ol/style.js';
 
 
 let openlayerAdaptor = {
@@ -24,6 +22,7 @@ let openlayerAdaptor = {
         this.baseLayer = this.getTdtLayer('vec_w');
         this.labelLayer = this.getTdtLayer('cva_w');
 
+        document.getElementById('scaleline').style.display = 'block';
         const scaleLine = new ScaleLine({
             target: document.getElementById('scaleline')
         });
@@ -38,7 +37,8 @@ let openlayerAdaptor = {
             coordinateFormat: createStringXY(4),
             undefinedHTML: '&nbsp;'
         });
-        let controls = [scaleLine, mousePosition];
+        const zoom = new Zoom();
+        let controls = [zoom, scaleLine, mousePosition];
 
         window.map = new Map({
             controls: defaultControls({
@@ -87,8 +87,8 @@ let openlayerAdaptor = {
             const geom = features[i].getGeometry();
             geom.transform('EPSG:4326', window.map.getView().getProjection());
         }
-        const jsonLayer = new Vector({
-            source: new Vector({
+        const jsonLayer = new vectorLayer({
+            source: new vectorSource({
                 features: features
             }),
             style: style
@@ -97,11 +97,28 @@ let openlayerAdaptor = {
     },
 
     getVecStyle (feature){
+        const name = feature.get('name');
         return new Style({
-            image: Circle({
-                radius: 8,
-                fill: Fill({
-                    color: "red"
+            image: new CircleStyle({
+                radius: 5,
+                fill: new Fill({
+                    color: 'rgba(255, 0, 0, .5)'
+                }),
+                stroke: new Stroke({
+                    color: 'red',
+                    width: 1
+                })
+            }),
+            text: new Text({
+                text: name,
+                textAlign: 'left',
+                offsetX: 8,
+                fill: new Fill({
+                    color: 'rgba(0, 0, 0, 1)'
+                }),
+                stroke: new Stroke({
+                    color: 'white',
+                    width: 2
                 })
             })
         })

@@ -14,7 +14,6 @@
 </template>
 <script>
     import mapUtil from './../js/mapUtil';
-    import Element from 'element-ui';
     import 'element-ui/lib/theme-chalk/index.css';
 
     export default {
@@ -28,8 +27,8 @@
 //            console.log('home updated');
         },
         mounted () {
-            mapUtil.init('map', 'leaflet');
-            // mapUtil.addWmsLayer('https://ahocevar.com/geoserver/wms', 'topp:states');
+            mapUtil.init('map', 'ol');
+            mapUtil.addWmsLayer('http://localhost:8086/geoserver/lzugis/wms', 'lzugis:province');
             // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
             mapUtil.addGeojsonLayer();
         },
