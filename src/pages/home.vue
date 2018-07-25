@@ -11,11 +11,9 @@
     import mapUtil from './../js/mapUtil';
     import BaseMap from './../components/basemap.vue';
     import Legend from './../components/legend.vue';
-    import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
 
     export default {
         components: {
-            ElButton,
             BaseMap,
             Legend
         },
@@ -27,14 +25,15 @@
                     {"color":"rgba(255,127,39,255)","lable":"风险较高"},
                     {"color":"rgba(255,242,0,255)","lable":"有风险"},
                     {"color":"rgba(0,0,0,0)","lable":"无风险"}
-                ]
+                ],
+                mapType: 'leaflet'
             }
         },
         updated () {
 
         },
         mounted () {
-            mapUtil.init('map', 'ol');
+            mapUtil.init('map', this.mapType);
             mapUtil.addWmsLayer('http://39.106.122.204:8086/geoserver/railway/wms', 'railway:base_province');
             // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
             mapUtil.addGeojsonLayer();
