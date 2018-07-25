@@ -3,41 +3,47 @@
         <div class="custom-mouse-position" id="lonlat"></div>
         <div class="custom-scale-line" id="scaleline"></div>
         <div class="custom-overview-map" id="overview"></div>
-        <div class="base-map">
-            <el-radio-group v-model="basemap" size="small" @change="changeBaseMap">
-                <el-radio-button label="矢量"></el-radio-button>
-                <el-radio-button label="影像"></el-radio-button>
-                <el-radio-button label="地形"></el-radio-button>
-            </el-radio-group>
-        </div>
+        <BaseMap @changeBaseMap="changeBaseMap" v-show="basemapShow"></BaseMap>
+        <Legend ref="legend" :colors="legendColors"></Legend>
     </div>
 </template>
 <script>
     import mapUtil from './../js/mapUtil';
-    import 'element-ui/lib/theme-chalk/index.css';
+    import BaseMap from './../components/basemap.vue';
+    import Legend from './../components/legend.vue';
+    import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
 
     export default {
+        components: {
+            ElButton,
+            BaseMap,
+            Legend
+        },
         data () {
             return {
-                num:1,
-                basemap:'矢量'
+                basemapShow: true,
+                legendColors: [
+                    {"color":"rgba(232,27,35,255)","lable":"风险很高"},
+                    {"color":"rgba(255,127,39,255)","lable":"风险较高"},
+                    {"color":"rgba(255,242,0,255)","lable":"有风险"},
+                    {"color":"rgba(0,0,0,0)","lable":"无风险"}
+                ]
             }
         },
         updated () {
-//            console.log('home updated');
+
         },
         mounted () {
             mapUtil.init('map', 'ol');
-            mapUtil.addWmsLayer('http://localhost:8086/geoserver/lzugis/wms', 'lzugis:province');
+            mapUtil.addWmsLayer('http://39.106.122.204:8086/geoserver/railway/wms', 'railway:base_province');
             // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
             mapUtil.addGeojsonLayer();
+
+            this.$refs.legend.isShow = true;
         },
         methods: {
-            add () {
-                this.num++;
-            },
-            changeBaseMap (){
-                mapUtil.changeBaseLayer(this.basemap);
+            changeBaseMap (basemap){
+                mapUtil.changeBaseLayer(basemap);
             }
         }
     }
@@ -50,12 +56,6 @@
         position: absolute;
         top:40px;
         bottom: 30px;
-        .base-map{
-            position: absolute;
-            top:$border-margin;
-            right: $border-margin;
-            z-index: 999;
-        }
     }
     .custom-mouse-position{
         position: absolute;
