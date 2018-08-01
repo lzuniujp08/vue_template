@@ -29,7 +29,6 @@
         mounted () {},
         methods: {
             toogleLegend() {
-                debugger;
                 this.isShow = this.isShow ? false : true;
             }
         }

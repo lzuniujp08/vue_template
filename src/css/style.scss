@@ -76,6 +76,42 @@ nav{
     }
   }
 }
+
+.ol-zoom{
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 30px;
+  text-align: center;
+  button{
+    border: medium none;
+    border-radius: 2px;
+    background-color: #409eff;
+    font-size: 18px;
+    color: #FFF;
+    cursor: pointer;
+    margin-top: 1px;
+  }
+}
+.tooltip {
+  position: relative;
+  color: black;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.8);
+  height: 20px;
+  line-height: 20px;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  span.close{
+    cursor: pointer;
+    line-height: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+
 footer{
   position: fixed;
   bottom: 0;
