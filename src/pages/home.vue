@@ -85,11 +85,12 @@
     }
     .custom-overview-map{
         position: absolute;
-        bottom: 0;
-        left: 0;
+        top: 70px;
+        right: 30px;
+        width: 200px;
+        height: 200px;
         z-index: 999;
-        border-top: 1px solid #000;
-        border-right: 1px solid #000;
+        box-shadow: 1px 1px 2px #ccc;
         button{
             display: none !important;
         }
