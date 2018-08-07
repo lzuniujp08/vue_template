@@ -3,14 +3,14 @@
  */
 
 let chartUtil = {
-    chart: null,
+  chart: null,
 
-    init (domId, option){
-        const echarts = require('echarts');
-        this.chart = echarts.init(document.getElementById(domId));
-        // 绘制图表
-        this.chart.setOption(option);
-    }
+  init (domId, option){
+    const echarts = require('echarts');
+    this.chart = echarts.init(document.getElementById(domId));
+    // 绘制图表
+    this.chart.setOption(option);
+  }
 };
 
 export default chartUtil;

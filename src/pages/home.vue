@@ -9,48 +9,48 @@
     </div>
 </template>
 <script>
-    import mapUtil from './../js/mapUtil';
-    import BaseMap from './../components/basemap.vue';
-    import Legend from './../components/legend.vue';
-    import Measure from './../components/measure.vue';
+  import mapUtil from './../js/mapUtil';
+  import BaseMap from './../components/basemap.vue';
+  import Legend from './../components/legend.vue';
+  import Measure from './../components/measure.vue';
 
-    export default {
-        components: {
-            BaseMap,
-            Legend,
-            Measure
-        },
-        data () {
-            return {
-                basemapShow: true,
-                legendColors: [
-                    {"color":"rgba(232,27,35,255)","lable":"风险很高"},
-                    {"color":"rgba(255,127,39,255)","lable":"风险较高"},
-                    {"color":"rgba(255,242,0,255)","lable":"有风险"},
-                    {"color":"rgba(0,0,0,0)","lable":"无风险"}
-                ],
-                mapType: 'ol',
-                map: null
-            }
-        },
-        updated () {
+  export default {
+    components: {
+      BaseMap,
+      Legend,
+      Measure
+    },
+    data () {
+      return {
+        basemapShow: true,
+        legendColors: [
+          {'color': 'rgba(232,27,35,255)', 'lable': '风险很高'},
+          {'color': 'rgba(255,127,39,255)', 'lable': '风险较高'},
+          {'color': 'rgba(255,242,0,255)', 'lable': '有风险'},
+          {'color': 'rgba(0,0,0,0)', 'lable': '无风险'}
+        ],
+        mapType: 'ol',
+        map: null
+      };
+    },
+    updated () {
 
-        },
-        mounted () {
-            mapUtil.init('map', this.mapType);
-            this.map = window.map;
-            mapUtil.addWmsLayer('http://39.106.122.204:8086/geoserver/railway/wms', 'railway:base_province');
-            // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
-            mapUtil.addGeojsonLayer();
+    },
+    mounted () {
+      mapUtil.init('map', this.mapType);
+      this.map = window.map;
+      mapUtil.addWmsLayer('http://39.106.122.204:8086/geoserver/railway/wms', 'railway:base_province');
+      // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
+      mapUtil.addGeojsonLayer();
 
-            this.$refs.legend.isShow = true;
-        },
-        methods: {
-            changeBaseMap (basemap){
-                mapUtil.changeBaseLayer(basemap);
-            }
-        }
+      this.$refs.legend.isShow = true;
+    },
+    methods: {
+      changeBaseMap (basemap){
+        mapUtil.changeBaseLayer(basemap);
+      }
     }
+  };
 </script>
 
 <style lang="scss" scoped>

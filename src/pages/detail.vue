@@ -27,41 +27,40 @@
     </div>
 </template>
 <script>
-    import Vue from "vue";
-    import Element from 'element-ui';
-    import 'element-ui/lib/theme-chalk/index.css';
-    import $ from 'jquery';
-    Vue.use(Element);
+  import Vue from "vue";
+  import Element from 'element-ui';
+  import 'element-ui/lib/theme-chalk/index.css';
+  import $ from 'jquery';
+  Vue.use(Element);
 
-    export default {
-        data () {
-            return {
-                id: '',
-                name: '',
-                detailHtml:'加载中。。。',
-                visible:false
-            }
-        },
-        updated () {
-            this.id = this.$route.params.id;
-            this.name = this.$route.params.name;
-            this.getDetail();
-        },
-        mounted () {
-            this.id = this.$route.params.id;
-            this.name = this.$route.params.name;
-            this.getDetail();
-        },
-        methods: {
-            getDetail (id){
-                var _self = this;
-                setTimeout(function(){
-                    _self.detailHtml = '文章内容' + _self.name
-                },1000);
-
-            }
-        }
+  export default {
+    data () {
+      return {
+        id: '',
+        name: '',
+        detailHtml: '加载中。。。',
+        visible: false
+      };
+    },
+    updated () {
+      this.id = this.$route.params.id;
+      this.name = this.$route.params.name;
+      this.getDetail();
+    },
+    mounted () {
+      this.id = this.$route.params.id;
+      this.name = this.$route.params.name;
+      this.getDetail();
+    },
+    methods: {
+      getDetail (id) {
+        const _self = this;
+        setTimeout(function () {
+          _self.detailHtml = '文章内容' + _self.name;
+        }, 1000);
+      }
     }
+  };
 </script>
 
 <style lang="scss" scoped>
