@@ -2,18 +2,17 @@
  * created by lzugis 2018/7/11
  */
 
-
 let leafletAdaptor = {
   baseLayer: null,
   labelLayer: null,
 
   init (domId) {
-    domId = domId ? domId : 'map';
+    if (!domId) domId = 'map';
     this.baseLayer = this.getTdtLayer('vec_w');
     this.labelLayer = this.getTdtLayer('cva_w');
 
     window.map = L.map(domId, {
-      center: {lon:103.847 , lat:36.0473},
+      center: {lon: 103.847, lat: 36.0473},
       zoom: 4,
       maxZoom: 18,
       minZoom: 0,
@@ -36,23 +35,23 @@ let leafletAdaptor = {
     });
   },
 
-  addWmsLayer (url, layers){
+  addWmsLayer (url, layers) {
     const wms = L.tileLayer.wms(url, {
       layers: layers,
       format: 'image/png',
       transparent: true,
-      version:'1.1.1'
+      version: '1.1.1'
     });
     window.map.addLayer(wms);
   },
 
   addGeojsonLayer (data, style) {
-    L.geoJSON(data,{
+    L.geoJSON(data, {
       style: style
     }).addTo(map);
   },
 
-  getVecStyle (feature){
+  getVecStyle (feature) {
     return feature.properties && feature.properties.style;
   },
 
@@ -62,19 +61,19 @@ let leafletAdaptor = {
    */
   changeBaseLayer (type) {
     let self = this;
-    let baseLayer,
-      labelLayer = 'cva_w';
-    switch (type){
-      case '影像':{
+    let baseLayer = '';
+    let labelLayer = 'cva_w';
+    switch (type) {
+      case '影像': {
         baseLayer = 'img_w';
         labelLayer = 'cia_w';
         break;
       }
-      case '地形':{
+      case '地形': {
         baseLayer = 'ter_w';
         break;
       }
-      default:{
+      default: {
         baseLayer = 'vec_w';
         break;
       }

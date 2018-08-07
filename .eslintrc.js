@@ -29,6 +29,8 @@ module.exports = {
     "no-var": 2
   },
   globals: {
-    "ol": false
+    "ol": false,
+    "L": false,
+    "map": false
   }
 };

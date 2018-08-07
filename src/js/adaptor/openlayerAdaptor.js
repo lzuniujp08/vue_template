@@ -3,22 +3,21 @@
  */
 
 import {Map, View} from 'ol';
-import {createStringXY} from 'ol/coordinate'
+import {createStringXY} from 'ol/coordinate';
 import {toEPSG4326, fromEPSG4326} from 'ol/proj/epsg3857.js';
-import {Tile, Image, Vector as vectorLayer} from 'ol/layer';
-import {ImageWMS, XYZ, Vector as vectorSource} from 'ol/source.js';
+import {Tile, Image, Vector as VectorLayer} from 'ol/layer';
+import {ImageWMS, XYZ, Vector as VectorSource} from 'ol/source.js';
 import {defaults as defaultControls, ScaleLine, OverviewMap, Zoom} from 'ol/control.js';
-import MousePosition from 'ol/control/MousePosition'
+import MousePosition from 'ol/control/MousePosition';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import {Circle as CircleStyle, Fill, Stroke, Style, Text} from 'ol/style.js';
-
 
 let openlayerAdaptor = {
   baseLayer: null,
   labelLayer: null,
 
-  init (domId){
-    domId = domId ? domId : 'map';
+  init (domId) {
+    if (!domId) domId = 'map';
     this.baseLayer = this.getTdtLayer('vec_w');
     this.labelLayer = this.getTdtLayer('cva_w');
 
@@ -33,7 +32,7 @@ let openlayerAdaptor = {
     });
     const mousePosition = new MousePosition({
       target: document.getElementById('lonlat'),
-      projection:'EPSG:4326',
+      projection: 'EPSG:4326',
       coordinateFormat: createStringXY(4),
       undefinedHTML: '&nbsp;'
     });
@@ -64,7 +63,7 @@ let openlayerAdaptor = {
    * @param url
    * @param layers
    */
-  addWmsLayer (url, layers){
+  addWmsLayer (url, layers) {
     const wmsLayer = new Image({
       source: new ImageWMS({
         ratio: 1,
@@ -83,12 +82,12 @@ let openlayerAdaptor = {
 
   addGeojsonLayer (data, style) {
     const features = (new GeoJSON()).readFeatures(data);
-    for(let i = 0, len = features.length; i < len; i++){
+    for (let i = 0, len = features.length; i < len; i++) {
       const geom = features[i].getGeometry();
       geom.transform('EPSG:4326', window.map.getView().getProjection());
     }
-    const jsonLayer = new vectorLayer({
-      source: new vectorSource({
+    let jsonLayer = new VectorLayer({
+      source: new VectorSource({
         features: features
       }),
       style: style
@@ -96,7 +95,7 @@ let openlayerAdaptor = {
     window.map.addLayer(jsonLayer);
   },
 
-  getVecStyle (feature){
+  getVecStyle (feature) {
     const name = feature.get('name');
     return new Style({
       image: new CircleStyle({
@@ -121,24 +120,24 @@ let openlayerAdaptor = {
           width: 2
         })
       })
-    })
+    });
   },
 
-  changeBaseLayer(type) {
+  changeBaseLayer (type) {
     let self = this;
     let baseSource, labelSouce;
-    switch (type){
-      case '影像':{
+    switch (type) {
+      case '影像': {
         baseSource = self.getTdtSource('img_w');
         labelSouce = self.getTdtSource('cia_w');
         break;
       }
-      case '地形':{
+      case '地形': {
         baseSource = self.getTdtSource('ter_w');
         labelSouce = self.getTdtSource('cva_w');
         break;
       }
-      default:{
+      default: {
         baseSource = self.getTdtSource('vec_w');
         labelSouce = self.getTdtSource('cva_w');
         break;
@@ -152,20 +151,20 @@ let openlayerAdaptor = {
    * @param lyr
    * @returns {Tile}
    */
-  getTdtLayer (lyr){
+  getTdtLayer (lyr) {
     return new Tile({
-      source: this.getTdtSource(lyr),
-    })
+      source: this.getTdtSource(lyr)
+    });
   },
   /**
    * getTdtSource
    * @param lyr
    * @returns {XYZ}
    */
-  getTdtSource (lyr){
-    const url = "http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}";
+  getTdtSource (lyr) {
+    const url = 'http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}';
     return new XYZ({
-      url:url
+      url: url
     });
   }
 };

@@ -14,9 +14,9 @@ let mapUtil = {
 
   adaptorType: '',
 
-  init (domId, type){
-    domId = domId ? domId : 'map';
-    this.adaptorType = type ? type : 'ol';
+  init (domId, type) {
+    if (!domId) domId = 'map';
+    this.adaptorType = type;
     this.adaptors[this.adaptorType].init(domId);
   },
   /**
@@ -24,21 +24,19 @@ let mapUtil = {
    * @param url
    * @param layers
    */
-  addWmsLayer (url, layers){
+  addWmsLayer (url, layers) {
     this.adaptors[this.adaptorType].addWmsLayer(url, layers);
-    debugger
   },
 
-  addGeojsonLayer (){
+  addGeojsonLayer () {
     let self = this;
     let style = self.adaptors[self.adaptorType].getVecStyle;
     setTimeout(function () {
       self.adaptors[self.adaptorType].addGeojsonLayer(jsondata, style);
-    },1000)
-
+    }, 1000);
   },
 
-  changeBaseLayer(type) {
+  changeBaseLayer (type) {
     this.adaptors[this.adaptorType].changeBaseLayer(type);
   }
 
