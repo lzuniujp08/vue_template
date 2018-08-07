@@ -3,8 +3,8 @@
         <nav>
             <span class="logo">Openlayers+Vue</span>
             <ul class="menus">
-                <li v-for="menu in menus" :id="menu.id" >
-                    <router-link :to="menu.url" v-bind:click="menuSelect">{{ menu.title }}</router-link>
+                <li v-for="menu in menus" :id="menu.id" @click="menuSelect">
+                    <router-link :to="menu.url" >{{ menu.title }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -33,7 +33,7 @@
     },
     methods: {
       menuSelect () {
-        debugger;
+        console.log(this);
       }
     },
     computed: {

@@ -162,7 +162,7 @@ let openlayerAdaptor = {
    * @returns {XYZ}
    */
   getTdtSource (lyr) {
-    const url = 'http://t{0-7}.tianditu.com/DataServer?T="+lyr+"&X={x}&Y={y}&L={z}';
+    const url = 'http://t{0-7}.tianditu.com/DataServer?T=' + lyr + '&X={x}&Y={y}&L={z}';
     return new XYZ({
       url: url
     });
