@@ -51,15 +51,15 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
+    "echarts": "^4.0.4",
+    "element-ui": "^2.2.2",
+    "jquery": "^3.3.1",
+    "ol": "^5.0.2",
     "vue": "^2.3.4",
     "vue-loader": "^12.2.1",
     "vue-router": "^2.6.0",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.3.4",
-    "vuex": "^2.3.1",
-    "element-ui": "^2.2.2",
-    "jquery": "^3.3.1",
-    "echarts": "^4.0.4",
-    "ol": "^5.0.2"
+    "vuex": "^2.3.1"
   }
 }
