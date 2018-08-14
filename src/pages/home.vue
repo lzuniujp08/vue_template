@@ -2,10 +2,10 @@
     <div class="map" id="map">
         <div class="custom-mouse-position" id="lonlat"></div>
         <div class="custom-scale-line" id="scaleline"></div>
-        <div class="custom-overview-map" id="overview"></div>
         <BaseMap @changeBaseMap="changeBaseMap" v-show="basemapShow"></BaseMap>
         <Legend ref="legend" :colors="legendColors"></Legend>
-        <Measure ref="measure" :map="map"></Measure>
+        <Measure ref="measure"></Measure>
+        <Typhoon ref="typhoon"></Typhoon>
     </div>
 </template>
 <script>
@@ -13,12 +13,14 @@
   import BaseMap from './../components/basemap.vue';
   import Legend from './../components/legend.vue';
   import Measure from './../components/measure.vue';
+  import Typhoon from './../components/typhoon.vue';
 
   export default {
     components: {
       BaseMap,
       Legend,
-      Measure
+      Measure,
+      Typhoon
     },
     data () {
       return {
