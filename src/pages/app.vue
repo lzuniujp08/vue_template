@@ -48,5 +48,8 @@
 </script>
 
 <style lang="css">
-
+    .router-link-active {
+        font-weight: bold;
+        color: red;
+    }
 </style>
