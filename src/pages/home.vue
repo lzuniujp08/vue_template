@@ -2,10 +2,10 @@
     <div class="map" id="map">
         <div class="custom-mouse-position" id="lonlat"></div>
         <div class="custom-scale-line" id="scaleline"></div>
-        <div class="custom-overview-map" id="overview"></div>
         <BaseMap @changeBaseMap="changeBaseMap" v-show="basemapShow"></BaseMap>
         <Legend ref="legend" :colors="legendColors"></Legend>
-        <Measure ref="measure" :map="map"></Measure>
+        <Measure ref="measure"></Measure>
+        <Typhoon ref="typhoon"></Typhoon>
     </div>
 </template>
 <script>
@@ -13,12 +13,14 @@
   import BaseMap from './../components/basemap.vue';
   import Legend from './../components/legend.vue';
   import Measure from './../components/measure.vue';
+  import Typhoon from './../components/typhoon.vue';
 
   export default {
     components: {
       BaseMap,
       Legend,
-      Measure
+      Measure,
+      Typhoon
     },
     data () {
       return {
@@ -29,8 +31,7 @@
           {'color': 'rgba(255,242,0,255)', 'lable': '有风险'},
           {'color': 'rgba(0,0,0,0)', 'lable': '无风险'}
         ],
-        mapType: 'ol',
-        map: null
+        mapType: 'ol'
       };
     },
     updated () {
@@ -38,7 +39,6 @@
     },
     mounted () {
       mapUtil.init('map', this.mapType);
-      this.map = window.map;
       mapUtil.addWmsLayer('http://39.106.122.204:8086/geoserver/railway/wms', 'railway:base_province');
       // const url = 'http://10.16.57.78:8000//bjdw/STAT/site_live/20180711/BJDW_SK_1KM_ANA_weatherStation_201807111740.json';
       mapUtil.addGeojsonLayer();

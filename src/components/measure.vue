@@ -19,12 +19,7 @@
 
     export default {
         name: 'Measure',
-        props: {
-            map:{
-                type: Object,
-                default: window.map
-            }
-        },
+        props: {},
         components: {},
         data () {
             return {
