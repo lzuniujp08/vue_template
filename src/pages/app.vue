@@ -4,7 +4,7 @@
             <span class="logo">Openlayers+Vue</span>
             <ul class="menus">
                 <li v-for="menu in menus" :id="menu.id" @click="menuSelect">
-                    <router-link tag="li" :to="menu.url" >{{ menu.title }}</router-link>
+                    <router-link active-class="menu-active" tag="li" :to="menu.url" >{{ menu.title }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -48,7 +48,7 @@
 </script>
 
 <style lang="css">
-    .router-link-active {
+    .menu-active {
         color: #00a1ad;
         background-color: white;
         font-weight: bold;
