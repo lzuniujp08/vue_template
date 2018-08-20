@@ -8,30 +8,31 @@ Vue.use(VueRouter);
 const Home = require('./pages/home.vue');
 const Detail = require('./pages/detail.vue');
 const Chart = require('./pages/chart.vue');
+const routers = [
+  {
+    path: '/',
+    name: 'app',
+    redirect: '/home',
+    component: App,
+    children: [{
+      name: 'home',
+      path: '/home',
+      component: Home
+    }, {
+      name: 'detail',
+      path: '/detail/:id/:name',
+      component: Detail
+    }, {
+      name: 'chart',
+      path: '/chart',
+      component: Chart
+    }]
+  }
+];
 const router = new VueRouter({
   mode: 'hash',
   base: __dirname,
-  routes: [
-    {
-      path: '/',
-      name: 'app',
-      redirect: '/home',
-      component: App,
-      children: [{
-        name: 'home',
-        path: '/home',
-        component: Home
-      }, {
-        name: 'detail',
-        path: '/detail/:id/:name',
-        component: Detail
-      }, {
-        name: 'chart',
-        path: '/chart',
-        component: Chart
-      }]
-    }
-  ]
+  routes: routers
 });
 
 new Vue({
