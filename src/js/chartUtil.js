@@ -5,7 +5,7 @@
 let chartUtil = {
   chart: null,
 
-  init (domId, option){
+  init (domId, option) {
     const echarts = require('echarts');
     this.chart = echarts.init(document.getElementById(domId));
     // 绘制图表
