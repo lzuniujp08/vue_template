@@ -87,7 +87,7 @@
             let output;
             let tooltipCoord = evt.coordinate;
 
-            if (geom.getType().toLowerCase()==='polygon') {
+            if (geom.getType().toLowerCase() === 'polygon') {
               output = self.formatArea(geom);
               tooltipCoord = geom.getInteriorPoint().getCoordinates();
             } else {
@@ -229,7 +229,7 @@
         return styles;
       }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

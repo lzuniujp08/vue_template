@@ -12,24 +12,24 @@
     import 'element-ui/lib/theme-chalk/index.css';
 
     export default {
-        name: 'BaseMap',
-        props: {},
-        components: {},
-        data () {
-            return {
-                basemap: ''
-            }
-        },
-        updated () {},
-        mounted () {
-            this.basemap = '矢量';
-        },
-        methods: {
-            changeBaseMap (){
-                this.$emit('changeBaseMap', this.basemap);
-            }
+      name: 'BaseMap',
+      props: {},
+      components: {},
+      data () {
+        return {
+          basemap: ''
+        };
+      },
+      updated () {},
+      mounted () {
+        this.basemap = '矢量';
+      },
+      methods: {
+        changeBaseMap () {
+          this.$emit('changeBaseMap', this.basemap);
         }
-    }
+      }
+    };
 </script>
 
 <style lang="scss" scoped>

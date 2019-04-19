@@ -54,12 +54,15 @@
     "echarts": "^4.0.4",
     "element-ui": "^2.2.2",
     "jquery": "^3.3.1",
+    "mavon-editor": "^2.7.3",
     "ol": "^5.0.2",
     "vue": "^2.3.4",
+    "vue-froala-wysiwyg": "^2.9.3",
     "vue-loader": "^12.2.1",
     "vue-router": "^2.6.0",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.3.4",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "wangeditor": "^3.1.1"
   }
 }

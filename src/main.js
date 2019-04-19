@@ -3,7 +3,11 @@ import VueRouter from 'vue-router';
 import App from './pages/app.vue';
 import './css/style.scss';
 
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+
 Vue.use(VueRouter);
+Vue.use(mavonEditor);
 
 const Home = require('./pages/home.vue');
 const Detail = require('./pages/detail.vue');
@@ -41,6 +45,9 @@ const router = new VueRouter({
 new Vue({
   router,
   el: '#app',
+  data() {
+    return { value: '' }
+  },
   template: `
   <div id="app">
       <router-view class="view"></router-view>

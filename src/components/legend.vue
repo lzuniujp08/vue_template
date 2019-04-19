@@ -10,29 +10,29 @@
 
 <script>
     export default {
-        name: 'Legend',
-        props: {
-            colors:{
-                type: Array,
-                default: [
-                    {"color":"rgba(232,27,35,255)","lable":"风险很高"}
-                ]
-            }
-        },
-        components: {},
-        data () {
-            return {
-                isShow: false
-            }
-        },
-        updated () {},
-        mounted () {},
-        methods: {
-            toogleLegend() {
-                this.isShow = this.isShow ? false : true;
-            }
+      name: 'Legend',
+      props: {
+        colors: {
+          type: Array,
+          default: [
+                    {'color': 'rgba(232,27,35,255)', 'lable': '风险很高'}
+          ]
         }
-    }
+      },
+      components: {},
+      data () {
+        return {
+          isShow: false
+        };
+      },
+      updated () {},
+      mounted () {},
+      methods: {
+        toogleLegend () {
+          this.isShow = !this.isShow;
+        }
+      }
+    };
 </script>
 
 <style lang="scss" scoped>

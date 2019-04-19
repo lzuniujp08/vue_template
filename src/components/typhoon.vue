@@ -3,29 +3,29 @@
         <el-checkbox-button class="list-toggle" v-model="listShow" size="mini" label="台风列表"></el-checkbox-button>
         <div v-show="listShow">
             <el-table
-                    ref="multipleTable"
-                    :data="tableData3"
-                    tooltip-effect="dark"
-                    height="250"
-                    @selection-change="handleSelectionChange">
+              ref="multipleTable"
+              :data="tableData3"
+              tooltip-effect="dark"
+              height="250"
+              @selection-change="handleSelectionChange">
                 <el-table-column
-                        type="selection"
-                        width="55">
+                  type="selection"
+                  width="55">
                 </el-table-column>
                 <el-table-column
-                        label="日期"
-                        width="120">
+                  label="日期"
+                  width="120">
                     <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
                 <el-table-column
-                        prop="name"
-                        label="姓名"
-                        width="120">
+                  prop="name"
+                  label="姓名"
+                  width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="address"
-                        label="地址"
-                        show-overflow-tooltip>
+                  prop="address"
+                  label="地址"
+                  show-overflow-tooltip>
                 </el-table-column>
             </el-table>
         </div>
@@ -83,14 +83,13 @@
     updated () {},
     mounted () {
       const self = this;
-
     },
     methods: {
-      handleSelectionChange (val){
+      handleSelectionChange (val) {
         this.multipleSelection = val;
       }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

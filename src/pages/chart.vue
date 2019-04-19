@@ -1,15 +1,28 @@
 <template id="template">
-    <div class="chart" id="chart">
+    <div>
+        <!--<div class="chart" id="chart">-->
+        <!--</div>-->
+        <calendar/>
+        <!--<div class="editor" ref="editor"></div>-->
+        <div class="editor">
+            <!--<mavon-editor v-model="value"/>-->
+        </div>
     </div>
 </template>
 
 <script>
   import chartUtil from './../js/chartUtil';
+  import Editor from 'wangeditor';
+  import calendar from '../components/calendar.vue';
 
   export default {
+    components: {
+      calendar
+    },
     data () {
       return {
-        num: 1
+        num: 1,
+        editor: null
       };
     },
     updated () {
@@ -245,9 +258,25 @@
           }
         ]
       };
-      chartUtil.init('chart', option);
+      // chartUtil.init('chart', option);
+      this.$nextTick(() => {
+        // this.init();
+      });
     },
     methods: {
+      init () {
+        const self = this;
+        this.editor = new Editor(this.$refs.editor);
+        this.editor.customConfig = {
+          onchange: function (html) {
+            self.Content = html;
+          },
+          uploadImgServer: '/api/UploadImg', // 上传图片到服务器
+          uploadFileName: 'Content', // 后端使用这个字段获取图片信息
+          uploadImgMaxLength: 1 // 限制一次最多上传 1 张图片
+        };
+        this.editor.create();
+      },
       add () {
         this.num++;
       }
@@ -260,6 +289,12 @@
         width: 100%;
         position: absolute;
         top:40px;
+        height: 400px;
+    }
+    .editor {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
         height: 400px;
     }
 </style>

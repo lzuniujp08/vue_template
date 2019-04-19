@@ -35,7 +35,7 @@
       };
     },
     updated () {
-
+mounted
     },
     mounted () {
       mapUtil.init('map', this.mapType);
