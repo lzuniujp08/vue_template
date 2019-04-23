@@ -8,11 +8,15 @@
       <button class="preMon" @click="preMon">上个月</button>
       <div class="thisMon">
         <span>{{ ynow }}</span>/
-        <span>{{ mnow }}</span>
+        <span>{{ mnow + 1 }}</span>
       </div>
       <button class="nextMon" @click="nextMon">下个月</button>
     </div>
-    <table border="1" id="table"/>
+    <table
+      class="table-calendar"
+      cellspacing="0"
+      cellpadding="0"
+      id="table"/>
   </div>
 </template>
 <script>
@@ -45,30 +49,42 @@
         let _this = this;
         let str = `
         <tr class="xiqi">
-          <td class="isRed">星期日</td>
-          <td>星期一</td>
-          <td>星期二</td>
-          <td>星期三</td>
-          <td>星期四</td>
-          <td>星期五</td>
-          <td class="isRed">星期六</td>
+          <th class="sunday">星期日</th>
+          <th>星期一</th>
+          <th>星期二</th>
+          <th>星期三</th>
+          <th>星期四</th>
+          <th>星期五</th>
+          <th class="saturday">星期六</th>
         </tr>`;
         let idx = '';
         let date_str = '';
-        let isRed = '';
+        let isWeekend = '';
         let hasMsg = '';
+        // 行
         for (let i = 0; i < _this.tr_str; i++) {
           str += '<tr>';
+          // 列，表示周
           for (let k = 0; k < 7; k++) {
             idx = i * 7 + k;
-            isRed = (k === 0 || k === 6) ? 'isRed' : '';
+            if (k === 0) {
+              isWeekend = 'sunday';
+            } else if (k === 6) {
+              isWeekend = 'saturday';
+            } else {
+              isWeekend = '';
+            }
             date_str = idx - _this.firstnow + 1;
             (date_str <= 0 || date_str > this.m_days[this.mnow]) ? date_str = '&nbsp;' : date_str = idx - _this.firstnow + 1;
-            date_str === _this.dnow ? hasMsg = '<td class="thisDay" date="' + date_str + '"><span  class="' + isRed + '">' + date_str + '</span></td>' : hasMsg = '<td date="' + date_str + '"><span  class="' + isRed + '">' + date_str + '</span></td>';
+            date_str === _this.dnow
+              ? hasMsg = '<td class="thisDay ' + isWeekend + '" date="' + date_str + '"><div>' + date_str + '</div></td>'
+              : hasMsg = '<td class="' + isWeekend + '" date="' + date_str + '"><div>' + date_str + '</div></td>';
             for (let l = 0, len = jsonHtml.length; l < len; l++) {
               if (date_str === jsonHtml[l].date) {
                 let newStr = '<p>' + jsonHtml[l].msg + '</p>';
-                date_str === _this.dnow ? hasMsg = '<td class="thisDay" date="' + date_str + '"><span  class="' + isRed + '">' + date_str + '</span>' + newStr + '</td>' : hasMsg = '<td date="' + date_str + '"><span  class="' + isRed + '">' + date_str + '</span>' + newStr + '</td>';
+                date_str === _this.dnow
+                  ? hasMsg = '<td class="thisDay ' + isWeekend + '" date="' + date_str + '"><div>' + date_str + '</div>' + newStr + '</td>'
+                  : hasMsg = '<td class="' + isWeekend + '" date="' + date_str + '"><div>' + date_str + '</div>' + newStr + '</td>';
               }
             }
             str += hasMsg;
@@ -79,9 +95,7 @@
         table.innerHTML = str;
       },
       // 两个参数代表的含义分别是this对象以及判断当前的操作是不是在进行月份的修改
-      sureDate (_this, other) {
-        this.newDate = new Date();
-        this.dnow = this.newDate.getDate(); // 今日日期
+      sureDate (_this) {
         this.firstDay = new Date(this.ynow, this.mnow, 1);
         this.firstnow = this.firstDay.getDay();
         this.m_days = [31, 28 + this.is_leap(this.ynow), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -90,46 +104,48 @@
       },
       preMon () {
         let _this = this;
-        this.mnow = this.mnow === 0 ? 12 : this.mnow - 1;
-        this.ynow = this.mnow === 12 ? this.ynow - 1 : this.ynow;
+        this.mnow = this.mnow === 0 ? 11 : this.mnow - 1;
+        this.ynow = this.mnow === 11 ? this.ynow - 1 : this.ynow;
         this.sureDate(_this, 'up');
       },
       nextMon () {
         let _this = this;
-        this.mnow = this.mnow === 11 ? 1 : this.mnow + 1;
-        this.ynow = this.mnow === 1 ? this.ynow + 1 : this.ynow;
+        this.mnow = this.mnow === 11 ? 0 : this.mnow + 1;
+        this.ynow = this.mnow === 0 ? this.ynow + 1 : this.ynow;
         this.sureDate(_this, 'next');
       },
       // 通过接口返回的是我们当前的月份对应在日历中需要处理的事项
       showMsg () {
-        let jsonHtml = [{
-          date: 2,
-          msg: '吃饭'
-        },
-        {
-          date: 3,
-          msg: '睡觉'
-        },
-        {
-          date: 4,
-          msg: '打豆豆'
-        },
-        {
-          date: 6,
-          msg: '豆豆不在家'
-        },
-        {
-          date: 12,
-          msg: '~~~~~'
-        },
-        {
-          date: 15,
-          msg: '怎么办~~~~'
-        },
-        {
-          date: 20,
-          msg: '找豆豆'
-        }];
+        let jsonHtml = [
+          {
+            date: 2,
+            msg: '吃饭'
+          },
+          {
+            date: 3,
+            msg: '睡觉'
+          },
+          {
+            date: 4,
+            msg: '打豆豆'
+          },
+          {
+            date: 6,
+            msg: '豆豆不在家'
+          },
+          {
+            date: 12,
+            msg: '~~~~~'
+          },
+          {
+            date: 15,
+            msg: '怎么办~~~~'
+          },
+          {
+            date: 20,
+            msg: '找豆豆'
+          }
+        ];
         this.drawTable(jsonHtml);
       }
     },
@@ -139,13 +155,14 @@
     mounted () {
       const currD = new Date();
       this.ynow = currD.getFullYear();
-      this.mnow = currD.getMonth() + 1;
+      this.mnow = currD.getMonth();
       this.getDaysInfo();
     },
     watch: {}
   };
 </script>
 <style lang="scss">
+  $table-border: 1px solid blue;
   #dateContainer {
     width: 100%;
     .nowTime {
@@ -160,25 +177,28 @@
         }
       }
     }
-    table {
+    .table-calendar {
       width: 100%;
-      border: 1px solid blue;
+      border-top: $table-border;
+      border-left: $table-border;
       tr {
         width: 100%;
-        border: 1px solid blue;
-        border-right: none;
-        border-left: none;
         display: flex;
         justify-content: space-around;
-        td {
+        td, th {
           flex: 1;
-          border-right: 1px solid blue;
+          border-right: $table-border;
+          border-bottom: $table-border;
           text-align: center;
           height: 100px;
           span[date] {
             position: relative;
-            z-index: 999;
           }
+        }
+        th {
+          height: 25px;
+          line-height: 25px;
+          font-weight: bold;
         }
         tr:last-child {
           border: none;
@@ -186,8 +206,11 @@
         td.thisDay {
           background-color: #eee;
         }
-        .isRed {
+        .sunday {
           color: red;
+        }
+        .saturday {
+          color: green;
         }
       }
       tr.xiqi {
