@@ -19,7 +19,7 @@
 <script>
   import chartUtil from './../js/chartUtil';
   import Editor from 'wangeditor';
-  import calendar from '../components/calendar.vue';
+  import calendar from '../components/calendar1.vue';
 
   export default {
     components: {
