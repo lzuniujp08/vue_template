@@ -1,4 +1,4 @@
-/* disable eslint */
+/* eslint-disable */
 const lunar = {
   /**
    * 农历1900-2100的润大小信息表
