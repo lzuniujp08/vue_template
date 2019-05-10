@@ -24,16 +24,31 @@
                 </el-input>
             </el-form-item>
         </el-form>
+
+        <div style="height: 80px;">
+            <scroll-bar class="warp" overflow="hidden-x">
+                <ul class="list">
+                    <li v-for="i in 10">
+                       item {{ i }}
+                    </li>
+                </ul>
+            </scroll-bar>
+        </div>
     </div>
 </template>
+
 <script>
   import Vue from 'vue';
   import Element from 'element-ui';
   import 'element-ui/lib/theme-chalk/index.css';
+  import ScrollBar from '../components/scrollbar.vue';
   import $ from 'jquery';
   Vue.use(Element);
 
   export default {
+    components: {
+      ScrollBar
+    },
     data () {
       return {
         id: '',
@@ -66,5 +81,10 @@
 <style lang="scss" scoped>
     .login-form{
         width: 350px;
+    }
+    .warp{
+        height: 100%;
+        overflow: hidden;
+        width: 300px;
     }
 </style>

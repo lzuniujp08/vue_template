@@ -1,5 +1,6 @@
 <template id="template">
     <div>
+
         <!--<div class="chart" id="chart">-->
         <!--</div>-->
         <calendar/>

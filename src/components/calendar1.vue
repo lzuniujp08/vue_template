@@ -28,12 +28,19 @@
           v-for="(date, _index) in week"
           :key="_index"
           :class="getTdClass(date)">
-          <p>
-            {{ date.format('dd') }}
-          </p>
-          <p v-if="dateMessage[date.format('yyyyMMdd')]">
+          <div>
+            <div
+              :class="date.format('yyyyMMdd') === new Date().format('yyyyMMdd') ? 'solar today' : 'solar'">
+              {{ date.format('dd') }}
+            </div>
+            <div
+              class="lunar">
+              {{ getLunar(date) }}
+            </div>
+          </div>
+          <div v-if="dateMessage[date.format('yyyyMMdd')]">
             {{ dateMessage[date.format('yyyyMMdd')] }}
-          </p>
+          </div>
         </td>
       </tr>
     </table>
@@ -41,6 +48,7 @@
 </template>
 <script>
   import { DateFormat } from '../js/utils';
+  import { lunar } from '../js/lunar';
 
   export default {
     name: 'Calendar',
@@ -101,7 +109,6 @@
         let cls = '';
         if (date.getDay() === 0) cls += ' sunday';
         if (date.getDay() === 6) cls += ' saturday';
-        if (date.format('yyyyMMdd') === new Date().format('yyyyMMdd')) cls += ' today';
         let time = new Date(this.currentMonth);
         let m = time.getMonth();
         let y = time.getFullYear();
@@ -111,6 +118,18 @@
         let dTime = date.getTime();
         if (dTime < firstDate || dTime > lastDate) cls += ' out-month';
         return cls;
+      },
+      getLunar (date) {
+        const lDate = lunar.date2lunar(date);
+        let str = '';
+        if (lDate.lunarDay === 1) {
+          str = lDate.lunarMonthChiness;
+        } else if (lDate.isFestive) {
+          str = lDate.festive;
+        } else {
+          str = lDate.lunarDayChiness;
+        }
+        return str;
       }
     },
     created () {
@@ -142,7 +161,7 @@
   };
 </script>
 <style lang="scss">
-  $table-border: 1px solid blue;
+  $table-border: 1px solid #c4c4c4;
   .container {
     width: 100%;
     .date-today {
@@ -164,7 +183,7 @@
       width: 100%;
       border-top: $table-border;
       border-left: $table-border;
-      font-size: 18px;
+      font-size: 16px;
       tr {
         width: 100%;
         display: flex;
@@ -182,32 +201,45 @@
         th {
           height: 25px;
           line-height: 25px;
-          font-weight: bold;
+          text-align: left;
+          padding: 5px 10px;
         }
         tr:last-child {
           border: none;
         }
-        p {
+        div {
           margin: 0;
-          padding: 5px 10px;
-          &.time {
-            text-align: right;
+          .solar,
+          .lunar {
+            float: left;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            margin: 6px;
+          }
+          .lunar {
+            float: right;
+            width: auto;
+            white-space: nowrap;
+          }
+          .today {
+            background: #409eff;
+            color: white;
+            border-radius: 50%;
           }
         }
         td {
           cursor: pointer;
-          &.today {
-            background-color: #c1e0ee;
-          }
-          &.out-month {
-            background-color: #cccccc;
-            cursor: default;
-          }
           &.sunday {
             color: red;
           }
           &.saturday {
             color: green;
+          }
+          &.out-month {
+            color: #c4c4c4;
+            cursor: default;
           }
         }
       }
