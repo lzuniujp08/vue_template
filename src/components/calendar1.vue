@@ -35,6 +35,7 @@
               {{ date.format('dd') }}
             </div>
             <div
+              v-show="isLunar"
               class="lunar">
               {{ getLunar(date) }}
             </div>
@@ -57,16 +58,21 @@
       size: {
         type: String,
         default: ''
+      },
+      isLunar: {
+        type: Boolean,
+        default: true
+      },
+      dateMessage: {
+        type: String,
+        default: ''
       }
     },
     data () {
       return {
         monthDays: [],
         currentMonth: '',
-        data: [],
-        dateMessage: {
-          '20190425': '今日你值班！'
-        }
+        data: []
       };
     },
     mounted () {
