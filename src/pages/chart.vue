@@ -3,7 +3,7 @@
 
         <!--<div class="chart" id="chart">-->
         <!--</div>-->
-        <calendar/>
+        <calendar size="small"/>
         <!--<div class="editor" ref="editor"></div>-->
         <div class="editor">
             <!--<mavon-editor v-model="value"/>-->

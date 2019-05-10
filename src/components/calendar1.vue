@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div
+    :class="size === 'small' ? 'container small' : 'container'">
     <div class="date-today">
       今天是
       <span>{{ new Date().format('yyyy年MM月dd日') }}</span>
@@ -52,6 +53,12 @@
 
   export default {
     name: 'Calendar',
+    props: {
+      size: {
+        type: String,
+        default: ''
+      }
+    },
     data () {
       return {
         monthDays: [],
@@ -164,6 +171,9 @@
   $table-border: 1px solid #c4c4c4;
   .container {
     width: 100%;
+    &.small {
+      width: 800px;
+    }
     .date-today {
       float: right;
     }
